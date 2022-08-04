@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int fib_recursive(int n) // O(n)
+int fib_recursive(int n) // O(2^n)
 {
     if (n == 0)
     {
@@ -21,6 +21,11 @@ int fib_recursive(int n) // O(n)
 int fib_dp(int n) // O(n)
 {
     int n_2 = 0, n_1 = 1, fib;
+    if (n <= 1)
+    {
+        return n;
+    }
+
     for (int i = 2; i <= n; i++)
     {
         fib = n_2 + n_1;
@@ -34,6 +39,6 @@ int fib_dp(int n) // O(n)
 int main()
 {
     cout << fib_recursive(9) << endl;
-    cout << fib_dp(9) << endl;
+    cout << fib_dp(800) << endl;
     return 0;
 }

@@ -88,6 +88,8 @@ void mergesort(vector<vector <int>> &list, int head, int tail)
     }
 }
 
+//Find and union takes O(logV)
+
 //collapsing find
 int find (int v, int parent[])
 {
@@ -119,6 +121,7 @@ void weightedUnion (int v, int w, int parent[])
 
 }
 
+//O(ElogE) + O(VlogV) = O(VlogV)
 void kruskal(vector<vector <int>> &list, int V)
 {
     int cost = 0;
@@ -128,8 +131,10 @@ void kruskal(vector<vector <int>> &list, int V)
         parent[i] = -1;
     }
 
+    //O(ElogE)
     mergesort(list, 0, list.size()-1);
     
+    //O(VlogV)
     cout << "MST included the edges below: \n" << endl;
     for (auto i = 0; i < list.size(); i++)
     {
