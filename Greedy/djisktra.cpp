@@ -1,3 +1,5 @@
+//Pro: work on both Directed and Undirected Graph
+//Con: doesn't work on graph with negative weight
 #include <iostream>
 #include <vector>
 
@@ -78,7 +80,7 @@ int heapextract(vector<Edge> &heap)
     return temp;
 }
 
-void heapdelete(vector<Edge> &heap)
+/*void heapdelete(vector<Edge> &heap)
 {
     int n = heap.size() - 1;
     if (n==0)
@@ -94,7 +96,7 @@ void heapdelete(vector<Edge> &heap)
             heapify(heap, i);
         }
     }
-}
+}*/
 
 class Graph 
 {
@@ -152,12 +154,13 @@ void Graph::print()
 }
 
 
-
+//O(ElogV)
 void Graph::djisktra(int src)
 {
     //initialize cost[] and visited for relaxation
     int dist[V] = {0};
     bool visited[V];
+    //O(V)
     for (int i = 0; i < V; i++)
     {
         if (i != src)
@@ -171,6 +174,7 @@ void Graph::djisktra(int src)
         }
     }
     
+    //O(ElogV)
     vector<Edge> minHeap;
     for (auto i = adj[src].begin(); i != adj[src].end(); i++)
     {
@@ -178,14 +182,11 @@ void Graph::djisktra(int src)
         dist[i->dest] = i->weight;
     }
 
+    //O(ElogV)
     while (!minHeap.empty())
     {
         int v = heapextract(minHeap);
-        if (visited[v] && !minHeap.empty())
-        {
-            heapdelete(minHeap);
-        }
-        else
+        if (!visited[v])
         {
             visited[v] = true;
             if (!adj[v].empty())
@@ -203,12 +204,10 @@ void Graph::djisktra(int src)
                     }
                 }
             }
-            //cout << endl;
-            //cout << v << " ";
         }
+        //cout << endl;
+        //cout << v << " ";
     }
-    
-    //cout << endl;
     //Print Result 
     cout << "Shortest distance from vertex " << src << " to:" << endl; 
     for (int i = 1; i < V; i++)
@@ -222,18 +221,18 @@ void Graph::djisktra(int src)
 
 int main()
 {
-    int V = 9;
+    int V = 6;
     Graph g(V);
-    /*g.addEdgeD(0,1,2);
+    g.addEdgeD(0,1,2);
     g.addEdgeD(0,2,4);
     g.addEdgeD(1,2,1);
     g.addEdgeD(1,3,7);
     g.addEdgeD(2,4,3);
     g.addEdgeD(3,5,1);
     g.addEdgeD(4,3,2);
-    g.addEdgeD(4,5,5);*/
+    g.addEdgeD(4,5,5);
 
-    g.addEdgeU(0,1,4);
+    /*g.addEdgeU(0,1,4);
     g.addEdgeU(0,7,8);
     g.addEdgeU(1,7,11);
     g.addEdgeU(1,2,8);
@@ -246,7 +245,7 @@ int main()
     g.addEdgeU(5,6,2);
     g.addEdgeU(6,7,1);
     g.addEdgeU(6,8,6);
-    g.addEdgeU(7,8,7);
+    g.addEdgeU(7,8,7);*/
     //g.print();
     g.djisktra(0);
     return 0;
