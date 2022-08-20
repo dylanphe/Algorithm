@@ -13,6 +13,7 @@
 
 using namespace std;
 
+//O(n^2)
 void lcs(string s1, string s2)
 {
     int n = s1.size();

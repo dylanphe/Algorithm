@@ -1,3 +1,4 @@
+//Doesn't work on disconnected graph
 #include <iostream>
 #include <vector>
 using namespace std;
