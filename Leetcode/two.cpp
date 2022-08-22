@@ -1,3 +1,4 @@
+/* Add numbers from linked list */
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -34,8 +35,52 @@ void printList(ListNode *node)
     } 
 } 
 
-
 class Solution {
+public:
+    void addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* newNode = new ListNode(0);
+        int carry = 0;
+        ListNode* sumnode = newNode;
+
+        while (l1 && l2)
+        {
+            int sum = l1->val + l2->val + carry;
+            carry = sum/10;
+            newNode->next = new ListNode(sum%10);
+            newNode = newNode->next;
+            l1 = l1->next;
+            l2 = l2->next;
+        } 
+
+        while(l1)
+        {
+            int sum = l1->val + carry;
+            carry = sum/10;
+            newNode->next = new ListNode(sum%10);
+            newNode = newNode->next;
+            l1 = l1->next;
+        }
+
+        while(l2)
+        {
+            int sum = l2->val + carry;
+            carry = sum/10;
+            newNode->next = new ListNode(sum%10);
+            newNode = newNode->next;
+            l2 = l2->next;
+        }
+
+        if(carry > 0)
+        {
+            newNode->next = new ListNode(carry);
+        }
+        printList(sumnode->next);
+    }
+};
+
+
+
+/*class Solution {
 public:
     void addTwoNumbers(ListNode* l1, ListNode* l2) {
 
@@ -221,7 +266,7 @@ public:
         }
         printList(sumnode);
     }
-};
+};*/
 
 
 int main()

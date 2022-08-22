@@ -1,1 +1,1 @@
-append
+            cout << curr << " ";
